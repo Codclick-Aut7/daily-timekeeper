@@ -853,17 +853,11 @@ const Campanhas = () => {
                     className="bg-muted/50 min-h-[80px]"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label>Regras da Promoção</Label>
-                  <EmojiTextarea
-                    value={recuperacaoForm.regras}
-                    onValueChange={(v) =>
-                      setRecuperacaoForm((prev) => ({ ...prev, regras: v }))
-                    }
-                    placeholder="Ex: Válido apenas para clientes sem compras nos últimos 60 dias. Não cumulativo com outras promoções."
-                    className="bg-muted/50 min-h-[80px]"
-                  />
-                </div>
+              </div>
+            )}
+          </div>
+
+
               </div>
             )}
           </div>
