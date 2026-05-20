@@ -150,6 +150,7 @@ Deno.serve(async (req) => {
           dados[`msg_${n}`] = m.mensagem ?? null;
           dados[`img_${n}`] = m.imagem_ativa ? (m.imagem_url ?? null) : null;
           dados[`legenda_${n}`] = m.legenda ?? null;
+          dados[`regra_promocao_${n}`] = m.regra ?? r.regras ?? null;
         });
       } else {
         dados = {
