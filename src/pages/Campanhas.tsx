@@ -361,10 +361,21 @@ const Campanhas = () => {
 
   const saveRecuperacaoMutation = useMutation({
     mutationFn: async () => {
-      const mensagens = recuperacaoForm.mensagens.length > 0
+      const mensagensForm = recuperacaoForm.mensagens.length > 0
         ? recuperacaoForm.mensagens
         : [emptyRecuperacaoMensagem()];
-      const primeira = mensagens[0];
+      const primeira = mensagensForm[0];
+      const mensagens = mensagensForm.map((m, i) => {
+        const n = i + 1;
+        return {
+          [`mensagem_${n}`]: m.mensagem ?? "",
+          [`imagem_url_${n}`]: m.imagem_url ?? null,
+          [`imagem_ativa_${n}`]: !!m.imagem_ativa,
+          [`legenda_${n}`]: m.legenda ?? "",
+          [`regra_promocao_${n}`]: m.regra ?? "",
+          [`promocao_${n}`]: recuperacaoForm.promocao ?? "",
+        };
+      });
       const dataToSave: Record<string, unknown> = {
         mensagem_ativa: recuperacaoForm.mensagem_ativa,
         promocao: recuperacaoForm.promocao,
