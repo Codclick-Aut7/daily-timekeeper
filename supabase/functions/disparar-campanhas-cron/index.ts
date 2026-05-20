@@ -105,17 +105,24 @@ Deno.serve(async (req) => {
           agendamento_timezone: r.agendamento_timezone,
         };
       } else if (manual.origem === "recuperacao_clientes") {
-        let mensagens: Array<{ mensagem: string; imagem_url: string | null; imagem_ativa: boolean; legenda: string }> = [];
+        let mensagens: Array<{ mensagem: string; imagem_url: string | null; imagem_ativa: boolean; legenda: string; regra: string }> = [];
         if (Array.isArray(r.mensagens) && r.mensagens.length > 0) {
           mensagens = r.mensagens.map((m: any) => ({
             mensagem: m?.mensagem ?? "",
             imagem_url: m?.imagem_url ?? null,
             imagem_ativa: !!m?.imagem_ativa,
             legenda: m?.legenda ?? "",
+            regra: m?.regra ?? "",
           }));
         } else {
           const q = Math.min(Math.max(Number(r.quant_msg ?? 1), 1), 3);
           const legacy = [
+            { mensagem: r.mensagem ?? "", imagem_url: r.imagem_1_url ?? r.imagem_url ?? null, imagem_ativa: !!(r.imagem_1_ativa ?? r.imagem_ativa), legenda: r.legenda_1 ?? r.legenda ?? "", regra: r.regras ?? "" },
+            { mensagem: r.mensagem_2 ?? "", imagem_url: r.imagem_2_url ?? null, imagem_ativa: !!r.imagem_2_ativa, legenda: r.legenda_2 ?? "", regra: "" },
+            { mensagem: r.mensagem_3 ?? "", imagem_url: r.imagem_3_url ?? null, imagem_ativa: !!r.imagem_3_ativa, legenda: r.legenda_3 ?? "", regra: "" },
+          ];
+          mensagens = legacy.slice(0, q);
+        }
             { mensagem: r.mensagem ?? "", imagem_url: r.imagem_1_url ?? r.imagem_url ?? null, imagem_ativa: !!(r.imagem_1_ativa ?? r.imagem_ativa), legenda: r.legenda_1 ?? r.legenda ?? "" },
             { mensagem: r.mensagem_2 ?? "", imagem_url: r.imagem_2_url ?? null, imagem_ativa: !!r.imagem_2_ativa, legenda: r.legenda_2 ?? "" },
             { mensagem: r.mensagem_3 ?? "", imagem_url: r.imagem_3_url ?? null, imagem_ativa: !!r.imagem_3_ativa, legenda: r.legenda_3 ?? "" },
