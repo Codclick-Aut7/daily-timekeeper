@@ -365,7 +365,7 @@ const Campanhas = () => {
       const dataToSave: Record<string, unknown> = {
         mensagem_ativa: recuperacaoForm.mensagem_ativa,
         promocao: recuperacaoForm.promocao,
-        regras: recuperacaoForm.regras,
+        regras: primeira?.regra ?? "",
         status: recuperacaoForm.status,
         ativa_promocao: recuperacaoForm.ativa_promocao,
         legenda_ativa: recuperacaoForm.legenda_ativa,
