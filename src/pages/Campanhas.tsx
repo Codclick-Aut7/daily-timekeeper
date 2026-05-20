@@ -809,6 +809,17 @@ const Campanhas = () => {
                         className="bg-muted/50 min-h-[60px]"
                       />
                     </div>
+                    {recuperacaoForm.ativa_promocao === "sim" && (
+                      <div className="space-y-2">
+                        <Label>Regras da Promoção {numero}</Label>
+                        <EmojiTextarea
+                          value={msg.regra}
+                          onValueChange={(v) => updateRecuperacaoMensagemAt(idx, { regra: v })}
+                          placeholder={`Regras específicas da promoção enviada na mensagem ${numero}`}
+                          className="bg-muted/50 min-h-[80px]"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               );
