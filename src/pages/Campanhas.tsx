@@ -226,13 +226,16 @@ const Campanhas = () => {
       const r = recuperacao as any;
       let mensagens: RecuperacaoMensagem[] = [];
       if (Array.isArray(r.mensagens) && r.mensagens.length > 0) {
-        mensagens = r.mensagens.map((m: any) => ({
-          mensagem: m?.mensagem ?? "",
-          imagem_url: m?.imagem_url ?? null,
-          imagem_ativa: !!m?.imagem_ativa,
-          legenda: m?.legenda ?? "",
-          regra: m?.regra ?? "",
-        }));
+        mensagens = r.mensagens.map((m: any, i: number) => {
+          const n = i + 1;
+          return {
+            mensagem: m?.[`mensagem_${n}`] ?? m?.mensagem ?? "",
+            imagem_url: m?.[`imagem_url_${n}`] ?? m?.imagem_url ?? null,
+            imagem_ativa: !!(m?.[`imagem_ativa_${n}`] ?? m?.imagem_ativa),
+            legenda: m?.[`legenda_${n}`] ?? m?.legenda ?? "",
+            regra: m?.[`regra_promocao_${n}`] ?? m?.regra ?? "",
+          };
+        });
       } else {
         // Fallback para dados antigos (msg_1..msg_3)
         const q = Math.min(Math.max(Number(r.quant_msg ?? 1), 1), 3);
