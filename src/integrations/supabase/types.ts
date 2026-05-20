@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.1"
+    PostgrestVersion: "14.4"
   }
   public: {
     Tables: {
@@ -131,24 +131,6 @@ export type Database = {
         }
         Relationships: []
       }
-      categorias: {
-        Row: {
-          id: number
-          nome: string
-          ordem_exibicao: number | null
-        }
-        Insert: {
-          id?: number
-          nome: string
-          ordem_exibicao?: number | null
-        }
-        Update: {
-          id?: number
-          nome?: string
-          ordem_exibicao?: number | null
-        }
-        Relationships: []
-      }
       clientes: {
         Row: {
           aniversario: string | null
@@ -223,6 +205,87 @@ export type Database = {
           ultima_compra?: string | null
           ultimo_pedido?: string | null
           valor_frete?: number | null
+          whatsapp?: string | null
+        }
+        Relationships: []
+      }
+      clientes_clickflow: {
+        Row: {
+          aniversario: string | null
+          aniversario_timestamp: string | null
+          created_at: string
+          data_cadastro: string | null
+          data_envio_rec: string | null
+          id: number
+          ja_enviado: string | null
+          mensagem_enviada_clickflow: string | null
+          msg1_aniversario_data_envio: string | null
+          msg1_aniversario_enviada: string | null
+          msg2_aniversario_data_envio: string | null
+          msg2_aniversario_enviada: string | null
+          msg3_aniversario_data_envio: string | null
+          msg3_aniversario_enviada: string | null
+          nome: string | null
+          observacoes: string | null
+          opt_out: boolean | null
+          pedidos: string | null
+          promocao_enviada_clickflow: string | null
+          taxa: string | null
+          ultimo_envio: string | null
+          ultimo_pedido: string | null
+          ultimo_pedido_timestamp: string | null
+          whatsapp: string | null
+        }
+        Insert: {
+          aniversario?: string | null
+          aniversario_timestamp?: string | null
+          created_at?: string
+          data_cadastro?: string | null
+          data_envio_rec?: string | null
+          id?: number
+          ja_enviado?: string | null
+          mensagem_enviada_clickflow?: string | null
+          msg1_aniversario_data_envio?: string | null
+          msg1_aniversario_enviada?: string | null
+          msg2_aniversario_data_envio?: string | null
+          msg2_aniversario_enviada?: string | null
+          msg3_aniversario_data_envio?: string | null
+          msg3_aniversario_enviada?: string | null
+          nome?: string | null
+          observacoes?: string | null
+          opt_out?: boolean | null
+          pedidos?: string | null
+          promocao_enviada_clickflow?: string | null
+          taxa?: string | null
+          ultimo_envio?: string | null
+          ultimo_pedido?: string | null
+          ultimo_pedido_timestamp?: string | null
+          whatsapp?: string | null
+        }
+        Update: {
+          aniversario?: string | null
+          aniversario_timestamp?: string | null
+          created_at?: string
+          data_cadastro?: string | null
+          data_envio_rec?: string | null
+          id?: number
+          ja_enviado?: string | null
+          mensagem_enviada_clickflow?: string | null
+          msg1_aniversario_data_envio?: string | null
+          msg1_aniversario_enviada?: string | null
+          msg2_aniversario_data_envio?: string | null
+          msg2_aniversario_enviada?: string | null
+          msg3_aniversario_data_envio?: string | null
+          msg3_aniversario_enviada?: string | null
+          nome?: string | null
+          observacoes?: string | null
+          opt_out?: boolean | null
+          pedidos?: string | null
+          promocao_enviada_clickflow?: string | null
+          taxa?: string | null
+          ultimo_envio?: string | null
+          ultimo_pedido?: string | null
+          ultimo_pedido_timestamp?: string | null
           whatsapp?: string | null
         }
         Relationships: []
@@ -511,7 +574,7 @@ export type Database = {
           agendamento_ativo: boolean
           agendamento_data_final: string | null
           agendamento_data_inicio: string | null
-          agendamento_dias_semana: number[] | null
+          agendamento_dias_semana: string[] | null
           agendamento_horarios: string[] | null
           agendamento_timezone: string
           agendamento_tipo: string | null
@@ -539,7 +602,7 @@ export type Database = {
           agendamento_ativo?: boolean
           agendamento_data_final?: string | null
           agendamento_data_inicio?: string | null
-          agendamento_dias_semana?: number[] | null
+          agendamento_dias_semana?: string[] | null
           agendamento_horarios?: string[] | null
           agendamento_timezone?: string
           agendamento_tipo?: string | null
@@ -567,7 +630,7 @@ export type Database = {
           agendamento_ativo?: boolean
           agendamento_data_final?: string | null
           agendamento_data_inicio?: string | null
-          agendamento_dias_semana?: number[] | null
+          agendamento_dias_semana?: string[] | null
           agendamento_horarios?: string[] | null
           agendamento_timezone?: string
           agendamento_tipo?: string | null
@@ -941,18 +1004,31 @@ export type Database = {
           origem: string
         }[]
       }
-      calcular_next_run_at: {
-        Args: {
-          p_ativo: boolean
-          p_data_final: string
-          p_data_inicio: string
-          p_dias_semana: number[]
-          p_horarios: string[]
-          p_timezone: string
-          p_tipo: string
-        }
-        Returns: string
-      }
+      calcular_next_run_at:
+        | {
+            Args: {
+              p_ativo: boolean
+              p_data_final: string
+              p_data_inicio: string
+              p_dias_semana: number[]
+              p_horarios: string[]
+              p_timezone: string
+              p_tipo: string
+            }
+            Returns: string
+          }
+        | {
+            Args: {
+              p_ativo: boolean
+              p_data_final: string
+              p_data_inicio: string
+              p_dias_semana: string[]
+              p_horarios: string[]
+              p_timezone: string
+              p_tipo: string
+            }
+            Returns: string
+          }
       get_full_config: { Args: never; Returns: Json }
       get_user_role: {
         Args: { _user_id: string }
