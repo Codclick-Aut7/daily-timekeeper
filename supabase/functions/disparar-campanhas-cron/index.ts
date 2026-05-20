@@ -123,12 +123,6 @@ Deno.serve(async (req) => {
           ];
           mensagens = legacy.slice(0, q);
         }
-            { mensagem: r.mensagem ?? "", imagem_url: r.imagem_1_url ?? r.imagem_url ?? null, imagem_ativa: !!(r.imagem_1_ativa ?? r.imagem_ativa), legenda: r.legenda_1 ?? r.legenda ?? "" },
-            { mensagem: r.mensagem_2 ?? "", imagem_url: r.imagem_2_url ?? null, imagem_ativa: !!r.imagem_2_ativa, legenda: r.legenda_2 ?? "" },
-            { mensagem: r.mensagem_3 ?? "", imagem_url: r.imagem_3_url ?? null, imagem_ativa: !!r.imagem_3_ativa, legenda: r.legenda_3 ?? "" },
-          ];
-          mensagens = legacy.slice(0, q);
-        }
         dados = {
           id: r.id,
           created_at: r.created_at,
