@@ -858,10 +858,6 @@ const Campanhas = () => {
           </div>
 
 
-              </div>
-            )}
-          </div>
-
           <AgendamentoCard
             value={recuperacaoAgenda}
             onChange={setRecuperacaoAgenda}
