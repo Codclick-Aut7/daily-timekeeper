@@ -91,12 +91,14 @@ const Campanhas = () => {
     imagem_url: string | null;
     imagem_ativa: boolean;
     legenda: string;
+    regra: string;
   };
   const emptyRecuperacaoMensagem = (): RecuperacaoMensagem => ({
     mensagem: "",
     imagem_url: null,
     imagem_ativa: false,
     legenda: "",
+    regra: "",
   });
   const [recuperacaoForm, setRecuperacaoForm] = useState({
     mensagem_ativa: true,
@@ -229,14 +231,15 @@ const Campanhas = () => {
           imagem_url: m?.imagem_url ?? null,
           imagem_ativa: !!m?.imagem_ativa,
           legenda: m?.legenda ?? "",
+          regra: m?.regra ?? "",
         }));
       } else {
         // Fallback para dados antigos (msg_1..msg_3)
         const q = Math.min(Math.max(Number(r.quant_msg ?? 1), 1), 3);
-        const legacy = [
-          { mensagem: r.mensagem ?? "", imagem_url: r.imagem_1_url ?? r.imagem_url ?? null, imagem_ativa: !!(r.imagem_1_ativa ?? r.imagem_ativa), legenda: r.legenda_1 ?? r.legenda ?? "" },
-          { mensagem: r.mensagem_2 ?? "", imagem_url: r.imagem_2_url ?? null, imagem_ativa: !!r.imagem_2_ativa, legenda: r.legenda_2 ?? "" },
-          { mensagem: r.mensagem_3 ?? "", imagem_url: r.imagem_3_url ?? null, imagem_ativa: !!r.imagem_3_ativa, legenda: r.legenda_3 ?? "" },
+        const legacy: RecuperacaoMensagem[] = [
+          { mensagem: r.mensagem ?? "", imagem_url: r.imagem_1_url ?? r.imagem_url ?? null, imagem_ativa: !!(r.imagem_1_ativa ?? r.imagem_ativa), legenda: r.legenda_1 ?? r.legenda ?? "", regra: r.regras ?? "" },
+          { mensagem: r.mensagem_2 ?? "", imagem_url: r.imagem_2_url ?? null, imagem_ativa: !!r.imagem_2_ativa, legenda: r.legenda_2 ?? "", regra: "" },
+          { mensagem: r.mensagem_3 ?? "", imagem_url: r.imagem_3_url ?? null, imagem_ativa: !!r.imagem_3_ativa, legenda: r.legenda_3 ?? "", regra: "" },
         ];
         mensagens = legacy.slice(0, q);
       }
@@ -362,7 +365,7 @@ const Campanhas = () => {
       const dataToSave: Record<string, unknown> = {
         mensagem_ativa: recuperacaoForm.mensagem_ativa,
         promocao: recuperacaoForm.promocao,
-        regras: recuperacaoForm.regras,
+        regras: primeira?.regra ?? "",
         status: recuperacaoForm.status,
         ativa_promocao: recuperacaoForm.ativa_promocao,
         legenda_ativa: recuperacaoForm.legenda_ativa,
@@ -806,6 +809,17 @@ const Campanhas = () => {
                         className="bg-muted/50 min-h-[60px]"
                       />
                     </div>
+                    {recuperacaoForm.ativa_promocao === "sim" && (
+                      <div className="space-y-2">
+                        <Label>Regras da Promoção {numero}</Label>
+                        <EmojiTextarea
+                          value={msg.regra}
+                          onValueChange={(v) => updateRecuperacaoMensagemAt(idx, { regra: v })}
+                          placeholder={`Regras específicas da promoção enviada na mensagem ${numero}`}
+                          className="bg-muted/50 min-h-[80px]"
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -839,20 +853,10 @@ const Campanhas = () => {
                     className="bg-muted/50 min-h-[80px]"
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label>Regras da Promoção</Label>
-                  <EmojiTextarea
-                    value={recuperacaoForm.regras}
-                    onValueChange={(v) =>
-                      setRecuperacaoForm((prev) => ({ ...prev, regras: v }))
-                    }
-                    placeholder="Ex: Válido apenas para clientes sem compras nos últimos 60 dias. Não cumulativo com outras promoções."
-                    className="bg-muted/50 min-h-[80px]"
-                  />
-                </div>
               </div>
             )}
           </div>
+
 
           <AgendamentoCard
             value={recuperacaoAgenda}
