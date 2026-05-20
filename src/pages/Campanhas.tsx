@@ -226,13 +226,16 @@ const Campanhas = () => {
       const r = recuperacao as any;
       let mensagens: RecuperacaoMensagem[] = [];
       if (Array.isArray(r.mensagens) && r.mensagens.length > 0) {
-        mensagens = r.mensagens.map((m: any) => ({
-          mensagem: m?.mensagem ?? "",
-          imagem_url: m?.imagem_url ?? null,
-          imagem_ativa: !!m?.imagem_ativa,
-          legenda: m?.legenda ?? "",
-          regra: m?.regra ?? "",
-        }));
+        mensagens = r.mensagens.map((m: any, i: number) => {
+          const n = i + 1;
+          return {
+            mensagem: m?.[`mensagem_${n}`] ?? m?.mensagem ?? "",
+            imagem_url: m?.[`imagem_url_${n}`] ?? m?.imagem_url ?? null,
+            imagem_ativa: !!(m?.[`imagem_ativa_${n}`] ?? m?.imagem_ativa),
+            legenda: m?.[`legenda_${n}`] ?? m?.legenda ?? "",
+            regra: m?.[`regra_promocao_${n}`] ?? m?.regra ?? "",
+          };
+        });
       } else {
         // Fallback para dados antigos (msg_1..msg_3)
         const q = Math.min(Math.max(Number(r.quant_msg ?? 1), 1), 3);
@@ -358,10 +361,21 @@ const Campanhas = () => {
 
   const saveRecuperacaoMutation = useMutation({
     mutationFn: async () => {
-      const mensagens = recuperacaoForm.mensagens.length > 0
+      const mensagensForm = recuperacaoForm.mensagens.length > 0
         ? recuperacaoForm.mensagens
         : [emptyRecuperacaoMensagem()];
-      const primeira = mensagens[0];
+      const primeira = mensagensForm[0];
+      const mensagens = mensagensForm.map((m, i) => {
+        const n = i + 1;
+        return {
+          [`mensagem_${n}`]: m.mensagem ?? "",
+          [`imagem_url_${n}`]: m.imagem_url ?? null,
+          [`imagem_ativa_${n}`]: !!m.imagem_ativa,
+          [`legenda_${n}`]: m.legenda ?? "",
+          [`regra_promocao_${n}`]: m.regra ?? "",
+          [`promocao_${n}`]: recuperacaoForm.promocao ?? "",
+        };
+      });
       const dataToSave: Record<string, unknown> = {
         mensagem_ativa: recuperacaoForm.mensagem_ativa,
         promocao: recuperacaoForm.promocao,
@@ -376,14 +390,14 @@ const Campanhas = () => {
         imagem_1_url: primeira?.imagem_url ?? null,
         imagem_1_ativa: !!primeira?.imagem_ativa,
         legenda_1: primeira?.legenda ?? "",
-        mensagem_2: mensagens[1]?.mensagem ?? null,
-        imagem_2_url: mensagens[1]?.imagem_url ?? null,
-        imagem_2_ativa: !!mensagens[1]?.imagem_ativa,
-        legenda_2: mensagens[1]?.legenda ?? null,
-        mensagem_3: mensagens[2]?.mensagem ?? null,
-        imagem_3_url: mensagens[2]?.imagem_url ?? null,
-        imagem_3_ativa: !!mensagens[2]?.imagem_ativa,
-        legenda_3: mensagens[2]?.legenda ?? null,
+        mensagem_2: mensagensForm[1]?.mensagem ?? null,
+        imagem_2_url: mensagensForm[1]?.imagem_url ?? null,
+        imagem_2_ativa: !!mensagensForm[1]?.imagem_ativa,
+        legenda_2: mensagensForm[1]?.legenda ?? null,
+        mensagem_3: mensagensForm[2]?.mensagem ?? null,
+        imagem_3_url: mensagensForm[2]?.imagem_url ?? null,
+        imagem_3_ativa: !!mensagensForm[2]?.imagem_ativa,
+        legenda_3: mensagensForm[2]?.legenda ?? null,
         data_inicio: recuperacaoForm.data_inicio
           ? new Date(recuperacaoForm.data_inicio).toISOString()
           : null,
