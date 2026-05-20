@@ -91,12 +91,14 @@ const Campanhas = () => {
     imagem_url: string | null;
     imagem_ativa: boolean;
     legenda: string;
+    regra: string;
   };
   const emptyRecuperacaoMensagem = (): RecuperacaoMensagem => ({
     mensagem: "",
     imagem_url: null,
     imagem_ativa: false,
     legenda: "",
+    regra: "",
   });
   const [recuperacaoForm, setRecuperacaoForm] = useState({
     mensagem_ativa: true,
