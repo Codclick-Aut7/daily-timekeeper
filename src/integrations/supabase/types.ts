@@ -230,6 +230,7 @@ export type Database = {
           opt_out: boolean | null
           pedidos: string | null
           promocao_enviada_clickflow: string | null
+          session: string | null
           taxa: string | null
           ultimo_envio: string | null
           ultimo_pedido: string | null
@@ -256,6 +257,7 @@ export type Database = {
           opt_out?: boolean | null
           pedidos?: string | null
           promocao_enviada_clickflow?: string | null
+          session?: string | null
           taxa?: string | null
           ultimo_envio?: string | null
           ultimo_pedido?: string | null
@@ -282,6 +284,7 @@ export type Database = {
           opt_out?: boolean | null
           pedidos?: string | null
           promocao_enviada_clickflow?: string | null
+          session?: string | null
           taxa?: string | null
           ultimo_envio?: string | null
           ultimo_pedido?: string | null
