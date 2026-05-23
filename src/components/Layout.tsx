@@ -23,6 +23,14 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   const isMobile = useIsMobile();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast.success("Logout realizado com sucesso!");
+    navigate("/auth");
+  };
 
   return (
     <SidebarProvider>
