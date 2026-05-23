@@ -925,18 +925,21 @@ export type Database = {
           created_at: string | null
           id: string
           token: string
+          token_role: Database["public"]["Enums"]["app_role"]
           used: boolean | null
         }
         Insert: {
           created_at?: string | null
           id?: string
           token: string
+          token_role?: Database["public"]["Enums"]["app_role"]
           used?: boolean | null
         }
         Update: {
           created_at?: string | null
           id?: string
           token?: string
+          token_role?: Database["public"]["Enums"]["app_role"]
           used?: boolean | null
         }
         Relationships: []
@@ -997,6 +1000,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      assign_role_from_token: {
+        Args: { _token: string; _user_id: string }
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
       atualizar_metricas_clientes: { Args: never; Returns: undefined }
       buscar_disparos_prontos: {
         Args: { p_limite?: number }
