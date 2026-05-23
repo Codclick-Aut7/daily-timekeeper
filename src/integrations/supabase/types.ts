@@ -925,18 +925,21 @@ export type Database = {
           created_at: string | null
           id: string
           token: string
+          token_role: Database["public"]["Enums"]["app_role"]
           used: boolean | null
         }
         Insert: {
           created_at?: string | null
           id?: string
           token: string
+          token_role?: Database["public"]["Enums"]["app_role"]
           used?: boolean | null
         }
         Update: {
           created_at?: string | null
           id?: string
           token?: string
+          token_role?: Database["public"]["Enums"]["app_role"]
           used?: boolean | null
         }
         Relationships: []
