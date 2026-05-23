@@ -1014,31 +1014,18 @@ export type Database = {
           origem: string
         }[]
       }
-      calcular_next_run_at:
-        | {
-            Args: {
-              p_ativo: boolean
-              p_data_final: string
-              p_data_inicio: string
-              p_dias_semana: number[]
-              p_horarios: string[]
-              p_timezone: string
-              p_tipo: string
-            }
-            Returns: string
-          }
-        | {
-            Args: {
-              p_ativo: boolean
-              p_data_final: string
-              p_data_inicio: string
-              p_dias_semana: string[]
-              p_horarios: string[]
-              p_timezone: string
-              p_tipo: string
-            }
-            Returns: string
-          }
+      calcular_next_run_at: {
+        Args: {
+          p_ativo: boolean
+          p_data_final: string
+          p_data_inicio: string
+          p_dias_semana: number[]
+          p_horarios: string[]
+          p_timezone: string
+          p_tipo: string
+        }
+        Returns: string
+      }
       get_full_config: { Args: never; Returns: Json }
       get_user_role: {
         Args: { _user_id: string }
