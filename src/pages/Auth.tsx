@@ -49,15 +49,22 @@ const Auth = () => {
         }
 
         // Create account
-        const { error } = await supabase.auth.signUp({
+        const { data: signUpData, error } = await supabase.auth.signUp({
           email,
           password,
           options: { emailRedirectTo: window.location.origin },
         });
         if (error) throw error;
 
-        // Mark token as used
-        await supabase.from("tokens").update({ used: true }).eq("id", tokenData.id);
+        // Atribui role do token ao novo usuário e marca o token como usado
+        const newUserId = signUpData.user?.id;
+        if (newUserId) {
+          const { error: roleError } = await supabase.rpc("assign_role_from_token", {
+            _token: token.trim(),
+            _user_id: newUserId,
+          });
+          if (roleError) throw roleError;
+        }
 
         toast.success("Conta criada! Verifique seu email para confirmar.");
       } else {
