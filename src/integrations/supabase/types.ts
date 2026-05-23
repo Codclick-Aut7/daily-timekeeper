@@ -1000,6 +1000,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      assign_role_from_token: {
+        Args: { _token: string; _user_id: string }
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
       atualizar_metricas_clientes: { Args: never; Returns: undefined }
       buscar_disparos_prontos: {
         Args: { p_limite?: number }
