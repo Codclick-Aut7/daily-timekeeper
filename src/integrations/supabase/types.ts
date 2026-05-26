@@ -577,7 +577,7 @@ export type Database = {
           agendamento_ativo: boolean
           agendamento_data_final: string | null
           agendamento_data_inicio: string | null
-          agendamento_dias_semana: string[] | null
+          agendamento_dias_semana: number[] | null
           agendamento_horarios: string[] | null
           agendamento_timezone: string
           agendamento_tipo: string | null
@@ -605,7 +605,7 @@ export type Database = {
           agendamento_ativo?: boolean
           agendamento_data_final?: string | null
           agendamento_data_inicio?: string | null
-          agendamento_dias_semana?: string[] | null
+          agendamento_dias_semana?: number[] | null
           agendamento_horarios?: string[] | null
           agendamento_timezone?: string
           agendamento_tipo?: string | null
@@ -633,7 +633,7 @@ export type Database = {
           agendamento_ativo?: boolean
           agendamento_data_final?: string | null
           agendamento_data_inicio?: string | null
-          agendamento_dias_semana?: string[] | null
+          agendamento_dias_semana?: number[] | null
           agendamento_horarios?: string[] | null
           agendamento_timezone?: string
           agendamento_tipo?: string | null
