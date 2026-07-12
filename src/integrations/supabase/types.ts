@@ -106,28 +106,37 @@ export type Database = {
       }
       cardapio: {
         Row: {
+          categoria: string | null
           created_at: string
           descricao: string | null
           disponivel: boolean
           id: number
+          id_original: string | null
           nome_do_prato: string | null
           preco: number | null
+          url_image: string | null
         }
         Insert: {
+          categoria?: string | null
           created_at?: string
           descricao?: string | null
           disponivel?: boolean
           id?: number
+          id_original?: string | null
           nome_do_prato?: string | null
           preco?: number | null
+          url_image?: string | null
         }
         Update: {
+          categoria?: string | null
           created_at?: string
           descricao?: string | null
           disponivel?: boolean
           id?: number
+          id_original?: string | null
           nome_do_prato?: string | null
           preco?: number | null
+          url_image?: string | null
         }
         Relationships: []
       }
@@ -461,6 +470,102 @@ export type Database = {
           check?: string | null
           created_at?: string
           id?: number
+        }
+        Relationships: []
+      }
+      menu_items: {
+        Row: {
+          additional_categories: string[] | null
+          available: boolean | null
+          borders_position: number | null
+          category: string
+          combination: Json | null
+          cost: number | null
+          created_at: string
+          description: string
+          frete_gratis: boolean | null
+          has_variations: boolean | null
+          height_cm: number | null
+          id: string
+          image: string
+          is_half_pizza: boolean | null
+          length_cm: number | null
+          max_sabores: number | null
+          name: string
+          permite_combinacao: boolean | null
+          pizza_borders: Json | null
+          popular: boolean | null
+          price: number
+          price_from: boolean | null
+          sku: string | null
+          stock: number | null
+          tipo: string | null
+          updated_at: string
+          variation_groups: Json | null
+          weight_g: number | null
+          width_cm: number | null
+        }
+        Insert: {
+          additional_categories?: string[] | null
+          available?: boolean | null
+          borders_position?: number | null
+          category: string
+          combination?: Json | null
+          cost?: number | null
+          created_at?: string
+          description?: string
+          frete_gratis?: boolean | null
+          has_variations?: boolean | null
+          height_cm?: number | null
+          id: string
+          image?: string
+          is_half_pizza?: boolean | null
+          length_cm?: number | null
+          max_sabores?: number | null
+          name: string
+          permite_combinacao?: boolean | null
+          pizza_borders?: Json | null
+          popular?: boolean | null
+          price?: number
+          price_from?: boolean | null
+          sku?: string | null
+          stock?: number | null
+          tipo?: string | null
+          updated_at?: string
+          variation_groups?: Json | null
+          weight_g?: number | null
+          width_cm?: number | null
+        }
+        Update: {
+          additional_categories?: string[] | null
+          available?: boolean | null
+          borders_position?: number | null
+          category?: string
+          combination?: Json | null
+          cost?: number | null
+          created_at?: string
+          description?: string
+          frete_gratis?: boolean | null
+          has_variations?: boolean | null
+          height_cm?: number | null
+          id?: string
+          image?: string
+          is_half_pizza?: boolean | null
+          length_cm?: number | null
+          max_sabores?: number | null
+          name?: string
+          permite_combinacao?: boolean | null
+          pizza_borders?: Json | null
+          popular?: boolean | null
+          price?: number
+          price_from?: boolean | null
+          sku?: string | null
+          stock?: number | null
+          tipo?: string | null
+          updated_at?: string
+          variation_groups?: Json | null
+          weight_g?: number | null
+          width_cm?: number | null
         }
         Relationships: []
       }
